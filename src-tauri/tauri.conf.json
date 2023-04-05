@@ -1,7 +1,7 @@
 {
     "package": {
         "productName": "mdpkm",
-        "version": "2.0.0"
+        "version": "1.7.0"
     },
     "build": {
         "distDir": "../build",
@@ -48,10 +48,14 @@
             "dialog": false,
             "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDQ4QUU2NEY1Q0NEMUEwNgpSV1FHR3MxY1QrYUtCQTg3ZWVoaHRkZklXbGdNVVRtWlVONldDckxKb3pMSmRQY3RuL0p5cWZ3Ywo=",
             "endpoints": [
-                "https://api.voxelified.com/v1/app/mdpkm/release/latest"
+                "https://voxelified.com/api/v1/releases/mdpkm/latest"
             ]
         },
         "allowlist": {
+            "protocol": {
+                "asset": true,
+                "assetScope": ["*"]
+            },
             "clipboard": {
                 "writeText": true
             },
@@ -64,12 +68,9 @@
                 "unmaximize": true,
                 "startDragging": true
             },
-			"protocol": {
-				"asset": true,
-				"assetScope": ["*"]
-			},
             "process": {
-                "exit": true
+                "exit": true,
+                "relaunch": true
             },
             "dialog": {
                 "open": true,
@@ -89,29 +90,30 @@
             },
             "shell": {
                 "open": ".*",
-                "scope": [{
-                    "name": "sh",
-                    "cmd": "sh",
-                    "args": ["-c", { "validator": "\\S+" }]
-                }, {
-                    "name": "powershell",
-                    "cmd": "powershell",
-                    "args": [{ "validator": "\\S+" }]
-                }],
-                "execute": true
-            },
-            "fs": {
-                "all": true,
-                "scope": ["$APPDATA", "$APPDATA/**"]
+                "scope": [
+                    {
+                        "name": "tar",
+                        "cmd": "tar",
+                        "args": true
+                    }
+                ]
             }
         },
-        "security": {
-            "csp": {
-                "img-src": "'self' data: https: asset: https://asset.localhost",
-                "style-src": "'unsafe-inline' 'self'",
-                "script-src": "'self' data:",
-                "default-src": "'self' data: asset: https://asset.localhost"
+        "windows": [
+            {
+                "title": "mdpkm",
+                "width": 1000,
+                "height": 600,
+                "center": true,
+                "focus": true,
+                "resizable": true,
+                "fullscreen": false,
+                "decorations": false,
+                "transparent": true
             }
+        ],
+        "security": {
+            "csp": "default-src * 'self' 'unsafe-inline' data:; img-src: 'self' data:; asset: https://asset.localhost; style-src: 'self' 'unsafe-inline'"
         }
     }
 }
